@@ -11,14 +11,15 @@ import axios from 'axios';
 const hueUsername = "Y1o4tP0brNpfTsd79l5rvhdQc-RTdbDbyZw1P-Zj";
 const hueIpAddress = "192.168.50.201";
 
-console.log(`Hue Username: ${hueUsername}`);
-console.log(`Hue IP Address: ${hueIpAddress}`);
+//console.log(`Hue Username: ${hueUsername}`);
+//console.log(`Hue IP Address: ${hueIpAddress}`);
 
 export const OnButton = async () => {
     const url = `http://${hueIpAddress}/api/${hueUsername}/lights/1/state`;
     try {
         return await axios.put(url, {
             on: true,
+            "bri": 25
         });
     } catch (err) {
         console.error(err);
@@ -30,6 +31,7 @@ export const OffButton = async () => {
     try {
         return await axios.put(url, {
             on: false,
+            "bri": 1
         });
     } catch (err) {
         console.error(err);
@@ -62,8 +64,30 @@ export const RestMode = async () => {
     }
 };
  
-/* OnButton();
-OffButton(); */
+
+export const FetchBrightness = async () => {
+    const url = `http://${hueIpAddress}/api/${hueUsername}/lights/1`;
+    try {
+        const response = await axios.get(url);
+        //console.log(response)
+        const brightness = response.data.state.bri;
+        console.log(brightness);
+        return brightness;
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
+};
+
+//FetchBrightness();
+
+/* FetchBrightness().then(response => {
+    console.log('Brightness:', response.data);
+}).catch(error => {
+    console.error('Error fetching brightness:', error);
+}); */
+//OnButton();
+//OffButton();
 
 //ConcentrateMode();
 //RestMode();
