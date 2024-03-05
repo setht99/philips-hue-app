@@ -19,7 +19,7 @@ export const OnButton = async () => {
     try {
         return await axios.put(url, {
             on: true,
-            "bri": 25
+            "bri": 75
         });
     } catch (err) {
         console.error(err);

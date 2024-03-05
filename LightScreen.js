@@ -1,42 +1,3 @@
-/* import React from 'react';
-import { View,Slider, Text, Button } from 'react-native';
-import { OnButton, OffButton, ConcentrateMode, RestMode } from './functions';
-
-const LightScreen = () => {
-  const handleOnPressOnButton = () => {
-    OnButton();
-    console.log('On button pressed');
-  };
-
-  const handleOnPressOffButton = () => {
-    OffButton();
-    console.log('Off button pressed');
-  };
-
-  const handleOnPressConcentrateMode = () => {
-    ConcentrateMode();
-    console.log('Concentrate mode button pressed');
-  };
-
-  const handleOnPressRestMode = () => {
-    RestMode();
-    console.log('Rest mode button pressed');
-  };
-
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Button title="Turn On" onPress={handleOnPressOnButton} />
-      <Button title="Turn Off" onPress={handleOnPressOffButton} />
-      <Button title="Concentrate Mode" onPress={handleOnPressConcentrateMode} />
-      <Button title="Rest Mode" onPress={handleOnPressRestMode} />
-    </View>
-  );
-};
-
-export default LightScreen;
- */
-
-
 import axios from 'axios';
 import {React, useState, useEffect}  from 'react';
 import { View, Text, Button } from 'react-native';
@@ -104,7 +65,19 @@ const LightScreen = () => {
     console.log('Rest mode button pressed');
   };
 
-
+  const handleBrightnessChange = async (value) => {
+    // Update the brightness value locally
+    setBrightness(value);
+    try {
+    // Update the brightness value on the lamp
+    const url = `http://${hueIpAddress}/api/${hueUsername}/lights/1/state`;
+    await axios.put(url, {
+    "bri": value
+    });
+    } catch (err) {
+    console.error('Error updating brightness:', err);
+    }
+    };
 
 
   
@@ -115,9 +88,20 @@ const LightScreen = () => {
       <Button title="Turn Off" onPress={handleOnPressOffButton} />
       <Button title="Concentrate Mode" onPress={handleOnPressConcentrateMode} />
       <Button title="Rest Mode" onPress={handleOnPressRestMode} />
-      
-     {/*  <Text>Brightness: {brightness}</Text>
+
       <Slider
+    style={{ width: 200, height: 40 }}
+    minimumValue={1}
+    maximumValue={254}
+    minimumTrackTintColor="#000000"
+    maximumTrackTintColor="#000000"
+    step={1}
+    value={brightness !== null ? brightness : 0} // Set the initial value of the slider
+    onValueChange={handleBrightnessChange} // Call handleBrightnessChange when the slider value changes
+  />
+      
+    
+      {/* {<Slider
         style={{ width: 200, height: 40 }}
         minimumValue={1}
         maximumValue={254}
@@ -125,8 +109,8 @@ const LightScreen = () => {
         maximumTrackTintColor="#000000"
         step={1}
         value={brightness}
-        onValueChange={handleBrightnessChange}
-      /> */}
+        
+      />} */}
     </View>
   );
 };
