@@ -41,12 +41,6 @@ const LightScreen = () => {
   };
   
 
-  /* const handleOnPressOnButton = () => {
-    OnButton();
-    fetchBrightness();
-    console.log('On button pressed');
-  }; */
-
   const handleOnPressOffButton = async () => {
     await OffButton();
     await fetchBrightness();
@@ -83,35 +77,58 @@ const LightScreen = () => {
   
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Brightness: {Math.round((brightness/254)*100) !== null ? Math.round((brightness/254)*100) : 'Loading...'}%</Text>
-      <Button title="Turn On" onPress={handleOnPressOnButton} />
-      <Button title="Turn Off" onPress={handleOnPressOffButton} />
-      <Button title="Concentrate Mode" onPress={handleOnPressConcentrateMode} />
-      <Button title="Rest Mode" onPress={handleOnPressRestMode} />
-
-      <Slider
-    style={{ width: 200, height: 40 }}
-    minimumValue={1}
-    maximumValue={254}
-    minimumTrackTintColor="#000000"
-    maximumTrackTintColor="#000000"
-    step={1}
-    value={brightness !== null ? brightness : 0} // Set the initial value of the slider
-    onValueChange={handleBrightnessChange} // Call handleBrightnessChange when the slider value changes
-  />
+      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
       
-    
-      {/* {<Slider
-        style={{ width: 200, height: 40 }}
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Text >Light 1</Text>
+          <Text>Brightness: {Math.round((brightness / 254) * 100) !== null ? Math.round((brightness / 254) * 100) : 'Loading...'}%</Text>
+          <Button title="Turn On" onPress={handleOnPressOnButton} />
+          <Button title="Turn Off" onPress={handleOnPressOffButton} />
+          <Button title="Concentrate Mode" onPress={handleOnPressConcentrateMode} />
+          <Button title="Rest Mode" onPress={handleOnPressRestMode} />
+         
+      <Slider
+        style={{ width: '80%', marginTop: 20 }}
         minimumValue={1}
         maximumValue={254}
         minimumTrackTintColor="#000000"
         maximumTrackTintColor="#000000"
         step={1}
-        value={brightness}
+        value={brightness !== null ? brightness : 0}
+        onValueChange={handleBrightnessChange}
+      />
+        </View>
+
         
-      />} */}
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text >Light 2</Text>
+          <Text>Brightness: {Math.round((brightness / 254) * 100) !== null ? Math.round((brightness / 254) * 100) : 'Loading...'}%</Text>
+          <Button title="Turn On" onPress={handleOnPressOnButton} />
+          <Button title="Turn Off" onPress={handleOnPressOffButton} />
+          <Button title="Concentrate Mode" onPress={handleOnPressConcentrateMode} />
+          <Button title="Rest Mode" onPress={handleOnPressRestMode} />
+          {/* Slider */}
+      <Slider
+        style={{ width: '80%', marginTop: 20 }}
+        minimumValue={1}
+        maximumValue={254}
+        minimumTrackTintColor="#000000"
+        maximumTrackTintColor="#000000"
+        step={1}
+        value={brightness !== null ? brightness : 0}
+        onValueChange={handleBrightnessChange}
+      />
+        </View>
+      </View>
+
+     
     </View>
+
+
+
+
+  
+    
   );
 };
 

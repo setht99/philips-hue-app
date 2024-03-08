@@ -77,6 +77,10 @@ export const FetchBrightness = async () => {
         console.error(err);
         return null;
     }
+
+
+
+
 };
 
 //FetchBrightness();
